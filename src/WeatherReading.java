@@ -1,3 +1,5 @@
+import java.sql.SQLSyntaxErrorException;
+
 /**
  * Record for holding a single weather reading
  * @param region region of weather reading
@@ -52,37 +54,31 @@ public record WeatherReading(String region,
      */
     @Override
     public int compareTo(WeatherReading o) {
-        if (country.compareTo(o.country) > 0)
-            return 1;
-        else if (country.compareTo(o.country) > 0)
-            return -1;
+        if(this.region().compareTo(o.region()) != 0)
+            return  region().compareTo(o.region());
+        
+        if(this.country().compareTo(o.country()) != 0)
+            return  this.country().compareTo(o.country());
 
-        if (state.compareTo(o.state) > 0)
-            return 1;
-        else if (state.compareTo(o.state) > 0)
-            return -1;
+        if(this.state().compareTo(o.state()) != 0)
+            return  this.state().compareTo(o.state());
 
-        if (city.compareTo(o.city) > 0)
-            return 1;
-        else if (city.compareTo(o.city) > 0)
-            return -1;
+        if(this.city().compareTo(o.city()) != 0)
+            return  this.city().compareTo(o.city());
 
-        if (year.compareTo(o.year) > 0)
-            return 1;
-        else if (year.compareTo(o.year) > 0)
-            return -1;
+        if(Integer.compare(this.month(), o.month()) != 0)
+            return  Integer.compare(this.month(), o.month());
 
-        if (month.compareTo(o.month) > 0)
-            return 1;
-        else if (month.compareTo(o.month) > 0)
-            return -1;
+        if(Integer.compare(this.day(), o.day()) != 0)
+            return  Integer.compare(this.day(), o.day());
 
-        if (day.compareTo(o.day) > 0)
-            return 1;
-        else if (day.compareTo(o.day) > 0)
-            return -1;
+        if(Integer.compare(this.year(), o.year()) != 0)
+            return  Integer.compare(this.year(), o.year());
 
-        return 0;
+        if(Double.compare(this.avgTemperature(), o.avgTemperature()) != 0)
+            return  Double.compare(this.avgTemperature(), o.avgTemperature());
+        else
+            return 0;
     }
 
     /**
@@ -96,17 +92,17 @@ public record WeatherReading(String region,
     public int compareTo(String country, String state, String city) {
         if (this.country.compareTo(country) > 0)
             return 1;
-        else if (this.country.compareTo(country) > 0)
+        else if (this.country.compareTo(country) < 0)
             return -1;
 
         if (this.state.compareTo(state) > 0)
             return 1;
-        else if (this.state.compareTo(state) > 0)
+        else if (this.state.compareTo(state) < 0)
             return -1;
 
         if (this.city.compareTo(city) > 0)
             return 1;
-        else if (this.city.compareTo(city) > 0)
+        else if (this.city.compareTo(city) < 0)
             return -1;
 
         return 0;
